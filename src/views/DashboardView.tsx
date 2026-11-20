@@ -226,13 +226,13 @@ export const DashboardView: React.FC = () => {
       )}
 
       {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#16382C] via-[#1E4A3B] to-[#122E24] text-white p-6 sm:p-10 lg:p-12 shadow-xl border border-emerald-800/40">
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#16382C] via-[#1E4A3B] to-[#122E24] text-white p-5 sm:p-10 lg:p-12 shadow-xl border border-emerald-800/40">
         <div className="relative z-10 max-w-3xl space-y-5">
           <div className="text-xs font-bold uppercase tracking-widest text-emerald-300">
             AaharIQ · {language === 'bn' ? 'খাদ্য বুদ্ধিমত্তা প্ল্যাটফর্ম' : 'Food Intelligence Platform'}
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-[1.12]">
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.15] break-words">
             {t.eatSmartLiveBetter}
           </h1>
 
@@ -245,19 +245,19 @@ export const DashboardView: React.FC = () => {
           {/* Search Bar */}
           <form onSubmit={handleSearchSubmit} className="pt-1">
             <div className="relative flex flex-col sm:flex-row items-stretch sm:items-center bg-white rounded-2xl p-1.5 shadow-xl border border-emerald-100/80">
-              <div className="flex items-center flex-1 px-3 py-2">
+              <div className="flex items-center flex-1 px-2.5 sm:px-3 py-1.5 sm:py-2 min-w-0">
                 <Search className="w-5 h-5 text-emerald-700 shrink-0 mr-2" />
                 <input
                   type="text"
                   value={heroSearchInput}
                   onChange={(e) => setHeroSearchInput(e.target.value)}
                   placeholder={t.searchPlaceholder}
-                  className="w-full text-stone-900 placeholder:text-stone-400 text-sm focus:outline-none bg-transparent"
+                  className="w-full text-stone-900 placeholder:text-stone-400 text-xs sm:text-sm focus:outline-none bg-transparent min-w-0"
                 />
               </div>
               <button
                 type="submit"
-                className="px-6 py-3 bg-[#E76F51] hover:bg-[#d85c3f] text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-colors flex items-center justify-center space-x-2 mt-1 sm:mt-0"
+                className="px-4 sm:px-6 py-2.5 sm:py-3 bg-[#E76F51] hover:bg-[#d85c3f] text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-colors flex items-center justify-center space-x-2 mt-1 sm:mt-0 shrink-0"
               >
                 <span>{t.searchButton}</span>
                 <ArrowRight className="w-4 h-4" />
@@ -294,28 +294,28 @@ export const DashboardView: React.FC = () => {
           </form>
 
           {/* Grounded Platform Metrics */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-emerald-800/60 text-xs">
-            <div className="bg-emerald-950/40 p-3 rounded-xl border border-emerald-800/30">
-              <span className="text-xl sm:text-2xl font-black text-emerald-300 block font-mono-num">389</span>
-              <span className="text-emerald-200/80 text-[11px]">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 pt-4 border-t border-emerald-800/60 text-xs">
+            <div className="bg-emerald-950/40 p-2.5 sm:p-3 rounded-xl border border-emerald-800/30">
+              <span className="text-lg sm:text-2xl font-black text-emerald-300 block font-mono-num">389</span>
+              <span className="text-emerald-200/80 text-[10px] sm:text-[11px] leading-tight block">
                 {language === 'bn' ? 'INFS দেশীয় খাদ্য রেকর্ড' : 'BD FCTB Food Records'}
               </span>
             </div>
-            <div className="bg-emerald-950/40 p-3 rounded-xl border border-emerald-800/30">
-              <span className="text-xl sm:text-2xl font-black text-amber-300 block font-mono-num">9 Labs</span>
-              <span className="text-emerald-200/80 text-[11px]">
+            <div className="bg-emerald-950/40 p-2.5 sm:p-3 rounded-xl border border-emerald-800/30">
+              <span className="text-lg sm:text-2xl font-black text-amber-300 block font-mono-num">9 Labs</span>
+              <span className="text-emerald-200/80 text-[10px] sm:text-[11px] leading-tight block">
                 {language === 'bn' ? 'BFSA তথ্যসূত্র ল্যাব' : 'BFSA Reference Labs'}
               </span>
             </div>
-            <div className="bg-emerald-950/40 p-3 rounded-xl border border-emerald-800/30">
-              <span className="text-xl sm:text-2xl font-black text-[#E76F51] block font-mono-num">10</span>
-              <span className="text-emerald-200/80 text-[11px]">
+            <div className="bg-emerald-950/40 p-2.5 sm:p-3 rounded-xl border border-emerald-800/30">
+              <span className="text-lg sm:text-2xl font-black text-[#E76F51] block font-mono-num">10</span>
+              <span className="text-emerald-200/80 text-[10px] sm:text-[11px] leading-tight block">
                 {language === 'bn' ? 'সমন্বিত খাদ্য মডিউল' : 'Integrated Modules'}
               </span>
             </div>
-            <div className="bg-emerald-950/40 p-3 rounded-xl border border-emerald-800/30">
-              <span className="text-xl sm:text-2xl font-black text-teal-300 block font-mono-num">EN · বাং</span>
-              <span className="text-emerald-200/80 text-[11px]">
+            <div className="bg-emerald-950/40 p-2.5 sm:p-3 rounded-xl border border-emerald-800/30">
+              <span className="text-lg sm:text-2xl font-black text-teal-300 block font-mono-num">EN · বাং</span>
+              <span className="text-emerald-200/80 text-[10px] sm:text-[11px] leading-tight block">
                 {language === 'bn' ? 'পূর্ণ দ্বিভাষিক সহায়তা' : 'Full Bilingual Platform'}
               </span>
             </div>

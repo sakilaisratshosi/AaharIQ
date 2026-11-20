@@ -95,15 +95,26 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [showSearchModal]);
 
+  // Lock background body scroll when the drawer menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [mobileMenuOpen]);
+
   const pendingGroceryCount = groceryItems.filter((i) => !i.isCompleted).length;
 
   const primaryNavItems: Array<{ id: AppView; label: string; icon: any; badge?: number }> = [
     { id: 'dashboard', label: language === 'bn' ? 'হোম' : 'Home', icon: UtensilsCrossed },
-    { id: 'recipes', label: t.globalRecipeFinder, icon: BookOpen },
-    { id: 'healthy-guide', label: t.healthyGuide, icon: HeartHandshake },
-    { id: 'food-scanner', label: t.foodScanner, icon: ScanLine },
-    { id: 'safety-center', label: t.safetyCenter, icon: ShieldCheck },
-    { id: 'bd-nutrition', label: t.bdNutritionExplorer, icon: Database },
+    { id: 'recipes', label: language === 'bn' ? 'রেসিপি' : 'Recipes', icon: BookOpen },
+    { id: 'healthy-guide', label: language === 'bn' ? 'পুষ্টি গাইড' : 'Guide', icon: HeartHandshake },
+    { id: 'food-scanner', label: language === 'bn' ? 'স্ক্যানার' : 'Scanner', icon: ScanLine },
+    { id: 'safety-center', label: language === 'bn' ? 'নিরাপত্তা' : 'Safety', icon: ShieldCheck },
+    { id: 'bd-nutrition', label: language === 'bn' ? 'খাদ্য DB' : 'Food DB', icon: Database },
   ];
 
   const allModuleItems: Array<{ id: AppView; label: string; icon: any; badge?: number }> = [
@@ -124,10 +135,33 @@ export const Navbar: React.FC = () => {
     { id: 'onboarding', label: t.onboarding, icon: Compass },
   ];
 
-  const mobileNavItems = [
-    ...primaryNavItems,
-    ...allModuleItems,
-    { id: 'profile' as AppView, label: t.profile, icon: User },
+  const mobileNavItems: Array<{ id: AppView; label: string; icon: any; badge?: number }> = [
+    { id: 'dashboard', label: language === 'bn' ? 'হোম' : 'Home', icon: UtensilsCrossed },
+    { id: 'recipes', label: language === 'bn' ? 'গ্লোবাল রেসিপি ফাইন্ডার' : 'Global Recipe Finder', icon: BookOpen },
+    { id: 'healthy-guide', label: language === 'bn' ? 'স্বাস্থ্যকর পুষ্টি গাইড' : 'Healthy Nutrition Guide', icon: HeartHandshake },
+    { id: 'food-scanner', label: language === 'bn' ? 'ফুড স্ক্যানার' : 'Food Scanner', icon: ScanLine },
+    { id: 'safety-center', label: language === 'bn' ? 'খাদ্য নিরাপত্তা কেন্দ্র' : 'Food Safety Center', icon: ShieldCheck },
+    { id: 'bd-nutrition', label: language === 'bn' ? 'বাংলাদেশ খাদ্য ডেটাবেজ' : 'Bangladesh Food DB', icon: Database },
+    { id: 'nutrition', label: language === 'bn' ? 'ক্যালোরি ও পুষ্টি বিশ্লেষক' : 'Calorie & Nutrition Analyzer', icon: Calculator },
+    { id: 'ingredient-ai', label: language === 'bn' ? 'রেসিপি ফাইন্ডার' : 'Recipe Finder', icon: Sparkles },
+    { id: 'food-journal', label: language === 'bn' ? 'খাদ্য জার্নাল' : 'Food Journal', icon: BookOpenCheck },
+    { id: 'food-comparison', label: language === 'bn' ? 'খাদ্য তুলনা' : 'Food Comparison', icon: Scale },
+    { id: 'food-waste', label: language === 'bn' ? 'অপচয় রোধ' : 'Food Waste Reduction', icon: Recycle },
+    {
+      id: 'meal-planner',
+      label: language === 'bn' ? 'মিল প্ল্যানার' : 'Meal Planner',
+      icon: CalendarDays,
+    },
+    {
+      id: 'grocery',
+      label: language === 'bn' ? 'বাজারের তালিকা' : 'Grocery Manager',
+      icon: ShoppingCart,
+      badge: pendingGroceryCount > 0 ? pendingGroceryCount : undefined,
+    },
+    { id: 'cuisines', label: language === 'bn' ? 'বৈশ্বিক রান্না' : 'Global Cuisines', icon: Globe2 },
+    { id: 'assistant', label: language === 'bn' ? 'খাদ্য সহকারী' : 'Food Assistant', icon: MessageSquare },
+    { id: 'onboarding', label: language === 'bn' ? 'দ্রুত সেটআপ' : 'Quick Setup', icon: Compass },
+    { id: 'profile', label: language === 'bn' ? 'আমার প্রোফাইল' : 'My Profile', icon: User },
   ];
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -160,20 +194,20 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-[#16382C] text-white shadow-md border-b border-[#255242]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 gap-3">
+      <header className="sticky top-0 z-40 bg-[#16382C] text-white shadow-md border-b border-[#255242] w-full">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 gap-2 sm:gap-3">
             {/* Brand Logo */}
             <button
               type="button"
-              className="flex items-center space-x-2.5 cursor-pointer group text-left shrink-0"
+              className="flex items-center space-x-2 sm:space-x-2.5 cursor-pointer group text-left shrink-0"
               onClick={() => navigateTo('dashboard')}
             >
-              <div className="relative w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-400 to-[#E76F51] p-0.5 shadow-md transform transition-transform group-hover:scale-105">
+              <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-400 to-[#E76F51] p-0.5 shadow-md transform transition-transform group-hover:scale-105 shrink-0">
                 <div className="w-full h-full bg-[#122E24] rounded-[10px] flex items-center justify-center overflow-hidden">
                   <svg
                     viewBox="0 0 36 36"
-                    className="w-6 h-6 text-emerald-400"
+                    className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-400"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
@@ -197,8 +231,8 @@ export const Navbar: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex items-center space-x-1.5">
-                <span className="font-extrabold text-xl tracking-tight text-white">
+              <div className="flex items-center space-x-1 sm:space-x-1.5">
+                <span className="font-extrabold text-lg sm:text-xl tracking-tight text-white">
                   Aahar<span className="text-emerald-400">IQ</span>
                 </span>
               </div>
@@ -286,11 +320,11 @@ export const Navbar: React.FC = () => {
             </nav>
 
             {/* Right Utility Controls */}
-            <div className="flex items-center space-x-1.5 sm:space-x-2.5 shrink-0">
+            <div className="flex items-center space-x-1 sm:space-x-2 shrink-0">
               <button
                 type="button"
                 onClick={() => setShowSearchModal(true)}
-                className="p-2 rounded-lg text-emerald-200 hover:text-white hover:bg-[#1E4A3B] transition-colors"
+                className="p-1.5 sm:p-2 rounded-lg text-emerald-200 hover:text-white hover:bg-[#1E4A3B] transition-colors"
                 title={language === 'bn' ? 'অনুসন্ধান' : 'Search'}
                 aria-label="Global Search"
               >
@@ -302,7 +336,7 @@ export const Navbar: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setNotificationsOpen(!notificationsOpen)}
-                  className="relative p-2 rounded-lg text-emerald-200 hover:text-white hover:bg-[#1E4A3B] transition-colors"
+                  className="relative p-1.5 sm:p-2 rounded-lg text-emerald-200 hover:text-white hover:bg-[#1E4A3B] transition-colors"
                   title={t.notifications}
                   aria-label="Notifications"
                 >
@@ -315,7 +349,7 @@ export const Navbar: React.FC = () => {
                 </button>
 
                 {notificationsOpen && (
-                  <div className="absolute right-0 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-stone-200 z-50 text-stone-800 overflow-hidden animate-slide-up">
+                  <div className="absolute right-0 mt-2 w-72 sm:w-80 max-w-[calc(100vw-20px)] bg-white rounded-2xl shadow-2xl border border-stone-200 z-50 text-stone-800 overflow-hidden animate-slide-up">
                     <div className="px-4 py-3 border-b border-stone-100 flex items-center justify-between bg-stone-50">
                       <span className="text-xs font-extrabold text-stone-900">
                         {t.notifications} ({appNotifications.length})
@@ -390,11 +424,11 @@ export const Navbar: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setLanguage(language === 'en' ? 'bn' : 'en')}
-                className="flex items-center space-x-1 px-2.5 py-1.5 rounded-lg bg-[#112920] hover:bg-[#1E4A3B] text-xs font-bold text-emerald-200 border border-emerald-800/40 transition-colors shrink-0"
+                className="flex items-center space-x-1 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-lg bg-[#112920] hover:bg-[#1E4A3B] text-[11px] sm:text-xs font-bold text-emerald-200 border border-emerald-800/40 transition-colors shrink-0"
                 title="Change Language / ভাষা পরিবর্তন"
               >
                 <Globe className="w-3.5 h-3.5 text-emerald-400" />
-                <span>{language === 'en' ? 'বাংলা' : 'EN'}</span>
+                <span>{language === 'en' ? 'বাং' : 'EN'}</span>
               </button>
 
               {/* Favorites */}
@@ -420,22 +454,22 @@ export const Navbar: React.FC = () => {
               </button>
 
               {/* User Profile Dropdown */}
-              <div className="relative" ref={dropdownRef}>
+              <div className="relative shrink-0" ref={dropdownRef}>
                 <button
                   type="button"
                   onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
-                  className={`flex items-center space-x-1.5 pl-1.5 pr-2 py-1 rounded-xl border transition-all text-xs ${
+                  className={`flex items-center space-x-1.5 pl-1.5 pr-2 py-1 rounded-xl border transition-all text-xs shrink-0 ${
                     currentView === 'profile' || profileDropdownOpen
                       ? 'bg-emerald-600/30 border-emerald-400 text-emerald-200'
                       : 'bg-[#122E24] border-emerald-800/50 text-white hover:bg-[#1A4234]'
                   }`}
                   aria-expanded={profileDropdownOpen}
                 >
-                  <div className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-bold text-xs border border-emerald-400/40">
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-bold text-xs border border-emerald-400/40 shrink-0">
                     {userInitial}
                   </div>
-                  <span className="hidden md:inline font-medium max-w-[90px] truncate">{displayName}</span>
-                  <ChevronDown className="w-3 h-3 text-emerald-300 opacity-70" />
+                  <span className="font-medium max-w-[90px] truncate">{displayName}</span>
+                  <ChevronDown className="w-3 h-3 text-emerald-300 opacity-70 shrink-0" />
                 </button>
 
                 {profileDropdownOpen && (
@@ -511,12 +545,13 @@ export const Navbar: React.FC = () => {
                 )}
               </div>
 
-              {/* Mobile Menu Toggle */}
+              {/* Menu Toggle (visible on all screens including desktop/Edge) */}
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 rounded-lg text-emerald-200 hover:text-white hover:bg-[#1E4A3B]"
+                className="p-1.5 sm:p-2 rounded-lg text-emerald-200 hover:text-white hover:bg-[#1E4A3B] transition-colors shrink-0"
                 aria-label="Toggle Menu"
+                title={language === 'bn' ? 'মেনু' : 'Menu'}
               >
                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
@@ -524,66 +559,98 @@ export const Navbar: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile & Tablet Navigation Drawer */}
+        {/* Navigation Drawer (Half-screen side panel on desktop, responsive on mobile) */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-[#112920] border-t border-[#1E4A3B] px-4 pt-3 pb-5 space-y-1 max-h-[80vh] overflow-y-auto">
-            <div className="p-2.5 mb-2 bg-[#183D30] rounded-xl flex items-center justify-between text-xs text-emerald-200">
-              <span className="font-bold flex items-center space-x-1.5">
-                <User className="w-3.5 h-3.5 text-emerald-400" />
-                <span>{displayName}</span>
-              </span>
-              {isAuthenticated ? (
-                <button
-                  type="button"
-                  onClick={() => {
-                    logout();
-                    setMobileMenuOpen(false);
-                  }}
-                  className="text-xs text-rose-300 font-bold underline"
-                >
-                  {t.signOut}
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsAuthModalOpen(true);
-                    setMobileMenuOpen(false);
-                  }}
-                  className="text-xs text-emerald-300 font-bold underline"
-                >
-                  {t.signIn}
-                </button>
-              )}
-            </div>
+          <>
+            {/* Backdrop overlay */}
+            <div
+              className="fixed inset-0 bg-black/40 backdrop-blur-[2px] z-40 transition-opacity"
+              onClick={() => setMobileMenuOpen(false)}
+            />
 
-            {mobileNavItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = currentView === item.id;
-              return (
+            {/* Side Drawer Container */}
+            <div
+              className="fixed top-16 right-0 z-50 w-full sm:w-[380px] md:w-[420px] max-w-full h-[calc(100vh-4rem)] bg-[#112920] border-l border-[#1E4A3B] shadow-2xl flex flex-col overscroll-contain animate-slide-up"
+              style={{ overscrollBehavior: 'contain' }}
+            >
+              {/* Drawer Header with Close (X) Button (FIXED at top) */}
+              <div className="shrink-0 px-4 pt-3 pb-2.5 bg-[#112920] border-b border-emerald-800/40 z-10 flex items-center justify-between text-emerald-100">
+                <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-300/90 flex items-center space-x-1.5">
+                  <LayoutGrid className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>{language === 'bn' ? 'মেনু ও ফিচার' : 'Menu & Features'}</span>
+                </span>
                 <button
-                  key={item.id}
                   type="button"
-                  onClick={() => navigateTo(item.id)}
-                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                    isActive
-                      ? 'bg-emerald-600/40 text-emerald-200 border border-emerald-500/30 font-semibold'
-                      : 'text-emerald-100/90 hover:bg-[#1A4033]'
-                  }`}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-1.5 rounded-lg bg-[#183D30] hover:bg-rose-900/50 text-emerald-300 hover:text-rose-200 border border-emerald-700/50 hover:border-rose-400/60 transition-all cursor-pointer active:scale-95"
+                  aria-label="Close drawer"
+                  title={language === 'bn' ? 'বন্ধ করুন' : 'Close'}
                 >
-                  <div className="flex items-center space-x-3">
-                    <Icon className="w-4 h-4 text-emerald-400" />
-                    <span>{item.label}</span>
-                  </div>
-                  {item.badge !== undefined && (
-                    <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-[#E76F51] text-white font-mono-num">
-                      {item.badge}
-                    </span>
-                  )}
+                  <X className="w-4 h-4" />
                 </button>
-              );
-            })}
-          </div>
+              </div>
+
+              {/* Scrollable Features Content Area */}
+              <div className="flex-1 overflow-y-auto px-4 py-3 space-y-1 overscroll-contain">
+                <div className="p-2.5 mb-2 bg-[#183D30] rounded-xl flex items-center justify-between text-xs text-emerald-200 border border-emerald-700/40">
+                  <span className="font-bold flex items-center space-x-1.5">
+                    <User className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>{displayName}</span>
+                  </span>
+                  {isAuthenticated ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        logout();
+                        setMobileMenuOpen(false);
+                      }}
+                      className="text-xs text-rose-300 font-bold underline"
+                    >
+                      {t.signOut}
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsAuthModalOpen(true);
+                        setMobileMenuOpen(false);
+                      }}
+                      className="text-xs text-emerald-300 font-bold underline"
+                    >
+                      {language === 'bn' ? 'লগইন করুন' : 'Sign In'}
+                    </button>
+                  )}
+                </div>
+
+                {mobileNavItems.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = currentView === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => navigateTo(item.id)}
+                      className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-colors ${
+                        isActive
+                          ? 'bg-emerald-600/40 text-emerald-200 border border-emerald-500/30 font-semibold shadow-xs'
+                          : 'text-emerald-100/90 hover:bg-[#1A4033]'
+                      }`}
+                    >
+                      <div className="flex items-center space-x-3">
+                        <Icon className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <span>{item.label}</span>
+                      </div>
+                      {item.badge !== undefined && (
+                        <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-[#E76F51] text-white font-mono-num">
+                          {item.badge}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </>
         )}
       </header>
 

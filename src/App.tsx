@@ -32,12 +32,12 @@ const AppContent: React.FC = () => {
   const { currentView, selectedRecipe, setSelectedRecipe, notification } = useApp();
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF7F0] text-stone-800 font-sans antialiased selection:bg-emerald-600 selection:text-white">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden flex flex-col bg-[#FAF7F0] text-stone-800 font-sans antialiased selection:bg-emerald-600 selection:text-white">
       {/* Navigation */}
       <Navbar />
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-5 sm:pt-7">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3.5 sm:px-6 lg:px-8 pt-4 sm:pt-7">
         {/* Consistent Inner Page Back + Home Navigation (Hidden on Home Page) */}
         <InnerPageNavigation />
 
