@@ -1,0 +1,6 @@
+{
+  "name": "NutriSmart AI",
+  "description": "Your Intelligent Food & Nutrition Companion. Discover nutritious recipes, analyze nutrition facts, get ingredient-based meal suggestions, and plan balanced diets with Google Gemini AI.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

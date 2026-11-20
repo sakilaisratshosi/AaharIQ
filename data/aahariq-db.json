@@ -1,0 +1,76 @@
+{
+  "users": [
+    {
+      "id": "usr_1795097033585_uqzcg",
+      "name": "QA Tester",
+      "email": "qa_1795097033470@aahariq.test",
+      "passwordHash": "44654f92bdfa76f107552fc4508ea5fd1dd1d7ee92915c32ac74c4be1e961affd448d2287628f245f320ce534234ef6ad88a12ef52a8519af5d582351fc696df",
+      "salt": "6dc0753bd47b65c1c34aab013804a1bc",
+      "dietaryPreference": "Balanced & Halal",
+      "dailyCalorieGoal": 2000,
+      "allergies": [],
+      "language": "en",
+      "preferredCuisines": [
+        "Bangladeshi",
+        "Mediterranean"
+      ],
+      "onboardingCompleted": true,
+      "createdAt": "2026-11-19T14:03:53.585Z",
+      "updatedAt": "2026-11-19T14:03:53.585Z"
+    },
+    {
+      "id": "usr_1795097087040_qaq6k",
+      "name": "QA Tester 2",
+      "email": "qa2_1795097086950@aahariq.test",
+      "passwordHash": "fc50ac291a368e3c595cc16c39afa2a389390c5891e0df715a577726f289507153eed6fa3d39a02043a369737d421aa927a8a4638cc1cce19852132da7347e25",
+      "salt": "ffb8f389ba5b8ab430d11a9f7ab50bd3",
+      "dietaryPreference": "Balanced & Halal",
+      "dailyCalorieGoal": 2000,
+      "allergies": [],
+      "language": "en",
+      "preferredCuisines": [
+        "Bangladeshi",
+        "Mediterranean"
+      ],
+      "onboardingCompleted": true,
+      "createdAt": "2026-11-19T14:04:47.040Z",
+      "updatedAt": "2026-11-19T14:04:47.040Z"
+    }
+  ],
+  "sessions": [
+    {
+      "token": "6383c34304b06644ed446cc553cc1aef352c856fdc38cb6b8dcb92ce526a237f",
+      "userId": "usr_1795097033585_uqzcg",
+      "createdAt": "2026-11-19T14:03:53.585Z",
+      "expiresAt": "2026-12-03T14:03:53.585Z"
+    },
+    {
+      "token": "a3fd6524f2309136e361f912c2889e80aab95d878f0b7b76d9b1cd61da11cd19",
+      "userId": "usr_1795097087040_qaq6k",
+      "createdAt": "2026-11-19T14:04:47.041Z",
+      "expiresAt": "2026-12-03T14:04:47.041Z"
+    }
+  ],
+  "passwordResets": [],
+  "foodJournalEntries": [
+    {
+      "id": "jr_1795097087052_nkf1",
+      "userId": "usr_1795097087040_qaq6k",
+      "date": "2026-11-19",
+      "mealSlot": "lunch",
+      "foodName": "Steamed Rice",
+      "foodNameBn": "Steamed Rice",
+      "servingLabel": "1 serving",
+      "servingGrams": 100,
+      "calories": 210,
+      "proteinG": 0,
+      "carbsG": 0,
+      "fatG": 0,
+      "fiberG": 0,
+      "source": "AaharIQ Manual Entry",
+      "createdAt": "2026-11-19T14:04:47.052Z"
+    }
+  ],
+  "foodComparisonHistory": [],
+  "savedRecipes": []
+}
